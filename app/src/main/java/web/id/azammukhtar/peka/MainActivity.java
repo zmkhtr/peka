@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext;
     private Intent mServiceIntent;
     private BackgroundService backgroundService;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
         mPass = findViewById(R.id.btnMainPassword);
 
         mContext = this;
+        sessionManager = new SessionManager(mContext);
+
+        dialogPassword();
+        getSupportActionBar().hide();
 
         Cursor res = db.getAllData();
         while (res.moveToNext()){
@@ -58,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(mContext, "First set password", Toast.LENGTH_SHORT).show();
                 } else {
                     startActivity(new Intent(MainActivity.this, LockAppActivity.class));
-                    finish();
+//                    finish();
                 }
             }
         });
@@ -84,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                             int zz = db.deleteData(mText);
                             db.insertData(mText);
                             Toast.makeText(mContext, "Password berhasil di update", Toast.LENGTH_SHORT).show();
+                            sessionManager.setPassword(mText);
                             startActivity(new Intent(MainActivity.this,MainActivity.class));
                             finish();
                         }
@@ -104,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo serviceInfo : manager.getRunningServices(Integer.MAX_VALUE)){
                 if (serviceClass.getName().equals(serviceInfo.service.getClassName())) {
-                    Log.i(TAG, "Running");
+                    Log.d(TAG, "Running");
                     return true;
                 }
         }
@@ -116,6 +122,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        sessionManager = new SessionManager(mContext);
+        String password = sessionManager.getPassword();
+        Log.d(TAG, "onStart: " + password);
+
         if(!isAccessGranted()){
             new AlertDialog.Builder(this)
                     .setTitle("USAGE_STATS Permission")
@@ -134,7 +145,8 @@ public class MainActivity extends AppCompatActivity {
                     })
                     .show();
         }
-        else if(pass.isEmpty()){
+        else
+        if(pass.isEmpty()){
             mPass.setText("Set Password");
 
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -154,17 +166,51 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         boolean tt = db.insertData(mText);
                         pass.add(mText);
-                        Toast.makeText(mContext, "password added succesfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "password berhasil ditambahkan", Toast.LENGTH_SHORT).show();
+                        sessionManager.setPassword(mText);
                         mPass.setText("UPDATE PASSWORD");
                     }
                 }
             });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton("Cancel",     new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
                 }
             });
+            builder.show();
+        } else  if (password != null) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            builder.setTitle("Enter Your Password");
+
+            final EditText input = new EditText(mContext);
+
+            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            builder.setView(input);
+
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    mText = input.getText().toString();
+                    if (mText.isEmpty()){
+                        Toast.makeText(mContext, "Password tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                    } else if (mText.equals(sessionManager.getPassword())){
+                        Toast.makeText(mContext, "Password Benar", Toast.LENGTH_SHORT).show();
+                        mPass.setText("UPDATE PASSWORD");
+                    } else if (!mText.equals(sessionManager.getPassword())){
+                        Toast.makeText(mContext, "Password Salah", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            builder.setNegativeButton("Cancel",     new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                    finish();
+                }
+            });
+
+            builder.setCancelable(false);
             builder.show();
         }
         backgroundService = new BackgroundService();
@@ -174,6 +220,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void dialogPassword(){
+        String password = sessionManager.getPassword();
+
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private boolean isAccessGranted(){
         try{
@@ -181,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(getPackageName(), 0 );
             AppOpsManager appOpsManager = (AppOpsManager) getSystemService(Context.APP_OPS_SERVICE);
             int mode = 0;
-            if (Build.VERSION.SDK_INT> Build.VERSION_CODES.KITKAT){
+            if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.KITKAT) {
                 mode = appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,
                         applicationInfo.uid, applicationInfo.packageName);
             }
@@ -189,5 +240,17 @@ public class MainActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 }

@@ -52,7 +52,9 @@ public class LockAppActivity extends AppCompatActivity {
         }
 
         recyclerView = findViewById(R.id.recyclerLockAppAplikasi);
-
+        getSupportActionBar().setTitle("Pilih Aplikasi yang ingin dikunci");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setElevation(0);
         adapter = new ListAplikasiAdapter();
         adapter.setAplikasiList(appList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -94,13 +96,13 @@ public class LockAppActivity extends AppCompatActivity {
             PackageInfo p = packs.get(i);
             Log.d(TAG, "getInstalledApps: " + packs.size());
             if (lock.contains(packs.get(i).packageName)){
-                if (!isSystemPackage(p)){
+                if ((isSystemPackage(p) == false)){
                     String appName = p.applicationInfo.loadLabel(getPackageManager()).toString();
                     Drawable icon = p.applicationInfo.loadIcon(getPackageManager());
                     appList.add(new Aplikasi(appName, icon, R.drawable.ic_lock, packs.get(i).packageName));
                 }
             } else {
-                if (!isSystemPackage(p)){
+                if ((isSystemPackage(p) == false)){
                     String appName = p.applicationInfo.loadLabel(getPackageManager()).toString();
                     Drawable icon = p.applicationInfo.loadIcon(getPackageManager());
                     appList.add(new Aplikasi(appName, icon, R.drawable.ic_lock_open, packs.get(i).packageName));
@@ -111,13 +113,25 @@ public class LockAppActivity extends AppCompatActivity {
     }
 
     private boolean isSystemPackage(PackageInfo p) {
-        return (p.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
+        return ((p.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) ? true : false;
     }
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
+        super.onBackPressed();
         startActivity(new Intent(LockAppActivity.this, MainActivity.class));
+        finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         finish();
     }
 }

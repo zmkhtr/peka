@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -56,6 +57,7 @@ public class BackgroundService extends Service {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private void startMyOwnForeround() {
+        Log.d(TAG, "startMyOwnForeround: start");
         String NOTIFICATION_CHANNEL_ID = "example.permanence";
         String channelName = "Background Service";
         NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_DEFAULT);
@@ -120,6 +122,7 @@ public class BackgroundService extends Service {
                         lockIntent.putExtra("name", pass.get(name.indexOf(printForegroundTask())));
                         lockIntent.putExtra("pack", printForegroundTask());
                         lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        lockIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContext.startActivity(lockIntent);
                     }
                 }

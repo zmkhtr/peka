@@ -5,17 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/colorPrimary">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logofix"
+        android:layout_margin="15dp"/>
 
     <Button
         android:id="@+id/btnMainLock"
         android:text="LOCK YOUR APP"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:drawableTop="@drawable/ic_lock_white"/>
     <Button
         android:id="@+id/btnMainPassword"
         android:text="UPDATE PASSWORD"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:drawableTop="@drawable/ic_vpn_key_black_24dp" />
+    <Button
+        android:id="@+id/btnMainLockDevice"
+        android:text="LOCK ANOTHER DEVICE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:drawableTop="@drawable/ic_phonelink_lock_black_24dp"/>
+
 </LinearLayout>

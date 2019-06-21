@@ -1,27 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".LockScreenActivity"
-    android:orientation="vertical">
+    android:background="@color/colorPrimary">
+    <!--<TextView-->
+    <!--android:id="@+id/textLockscreenStatus"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="APPLICATION LOCKED"-->
+    <!--android:textAlignment="center"-->
+    <!--android:textAppearance="@style/TextAppearance.AppCompat.Large"/>-->
+    <!--<EditText-->
+    <!--android:id="@+id/edtLockscreenPassword"-->
+    <!--android:hint="Enter password"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content" />-->
+
     <TextView
-        android:id="@+id/textLockscreenStatus"
+        android:id="@+id/textJudul"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="APPLICATION LOCKED"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
-    <EditText
-        android:id="@+id/edtLockscreenPassword"
-        android:hint="Enter password"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
+        android:textSize="30sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="Jawab Dulu !"/>
+    <androidx.cardview.widget.CardView
+        android:layout_below="@id/textJudul"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <Button
-        android:id="@+id/btnLockscreenUnlock"
-        android:text="unlock"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="@dimen/_200sdp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2dp"
+        android:padding="100dp"
+        app:cardPreventCornerOverlap="false">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/textLockQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:text="Siapakah penemu bola lampu?"
+            android:textAlignment="center"
+            android:fontFamily="casual"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnLockAnswer1"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:text="Wright Bersaudara"/>
+
+            <Button
+                android:id="@+id/btnLockAnswer2"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:text="Thomas Alfa Edison" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnLockAnswer3"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:text="Abu 'Ali Al-Hasan bin Al-Haitham" />
+
+            <Button
+                android:id="@+id/btnLockAnswer4"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:text="Jonatan Tesla" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

@@ -20,7 +20,7 @@ public class RestartService extends BroadcastReceiver {
             }
         }
 
-        Log.i(TAG, "onReceive: service tried to stop");
+        Log.d(TAG, "onReceive: service tried to stop");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(new Intent(context, BackgroundService.class));
         } else {
