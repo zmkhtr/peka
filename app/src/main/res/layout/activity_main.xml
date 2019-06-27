@@ -13,7 +13,14 @@
         android:layout_height="wrap_content"
         android:src="@drawable/logofix"
         android:layout_margin="15dp"/>
-
+    <Button
+        android:id="@+id/btnMainLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:text="LOGOUT"
+        android:textColor="#F44336"
+        android:layout_gravity="right"/>
     <Button
         android:id="@+id/btnMainLock"
         android:text="LOCK YOUR APP"
@@ -35,5 +42,6 @@
         android:layout_height="wrap_content"
         style="@style/Widget.AppCompat.Button.Colored"
         android:drawableTop="@drawable/ic_phonelink_lock_black_24dp"/>
+
 
 </LinearLayout>

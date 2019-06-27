@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "364546953377",
+    "firebase_url": "https://peka-e61c1.firebaseio.com",
+    "project_id": "peka-e61c1",
+    "storage_bucket": "peka-e61c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:364546953377:android:478c67630dfe40df",
+        "android_client_info": {
+          "package_name": "web.id.azammukhtar.peka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "364546953377-uvkjshkup4nm45kf4qf438oc19il91ft.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "web.id.azammukhtar.peka",
+            "certificate_hash": "83988493cdf13f1bfc3d4364c60f7637ccc3d06b"
+          }
+        },
+        {
+          "client_id": "364546953377-v2ursm6457qk2cl7d976qsbefnaahtb6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDD7L98p3gcwkTxCdMmOGsN29cEd-cloho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "364546953377-v2ursm6457qk2cl7d976qsbefnaahtb6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

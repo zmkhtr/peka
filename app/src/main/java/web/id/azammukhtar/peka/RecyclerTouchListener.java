@@ -29,6 +29,7 @@ public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
             }
         });
     }
+
     @Override
     public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
         View child = rv.findChildViewUnder(e.getX(), e.getY());

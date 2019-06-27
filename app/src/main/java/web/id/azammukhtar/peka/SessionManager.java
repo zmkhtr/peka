@@ -13,8 +13,9 @@ public class SessionManager {
     private SharedPreferences.Editor editor;
 
     // Shared preferences file name1
-    private static final String PREF_NAME = "Peka";
+    private static final String PREF_NAME = "peka";
     private static final String PASSWORD = "PASSWORD";
+    private static final String ANSWER = "ANSWER";
 
     public SessionManager(Context context) {
         int PRIVATE_MODE = 0;
@@ -28,9 +29,17 @@ public class SessionManager {
         editor.commit();
     }
 
+    public void setAnswer(String answer) {
+        editor.putString(ANSWER, answer);
+        editor.commit();
+    }
+
 
     public String getPassword(){
         return pref.getString(PASSWORD, null);
+    }
+    public String getAnswer(){
+        return pref.getString(ANSWER, null);
     }
 }
 

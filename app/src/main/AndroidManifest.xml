@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="web.id.azammukhtar.peka">
 
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-
-
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
-        tools:ignore="ProtectedPermissions"/>
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -18,17 +17,78 @@
         android:roundIcon="@drawable/logofix"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LockAppActivity"></activity>
-        <activity android:name=".LockScreenActivity"
-            android:autoRemoveFromRecents="true"/>
-        <activity android:name=".MainActivity">
+        <activity android:name=".ListDeviceActivity"></activity>
+        <activity
+            android:name=".PasswordActivity"
+            android:autoRemoveFromRecents="true"
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".MainActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".BlankActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".MainActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".LockAppActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".MainActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".LockScreenActivity"
+            android:autoRemoveFromRecents="true"
+            android:configChanges="orientation|keyboardHidden"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.sahabatpnj.pemandu.TARGET_NOTIFICATION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait"></activity>
 
         <service android:name=".BackgroundService" />
+        <service android:name=".FirebaseNotification">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".MyAdmin"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/policies" />
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN.ENABLE" />
+            </intent-filter>
+        </receiver>
     </application>
+
 </manifest>
